@@ -51,31 +51,9 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '主页', icon: 'dashboard' }
+      meta: { title: '个人基本信息', icon: 'dashboard' }
     }]
   },
-
-  // {
-  //   path: '/user',
-  //   component: Layout,
-  //   redirect: '/example/table',
-  //   name: '用户信息',
-  //   meta: { title: '用户信息', icon: 'el-icon-s-help' },
-  //   children: [
-  //     {
-  //       path: 'info',
-  //       name: 'info',
-  //       component: () => import('@/views/user/info'),
-  //       meta: { title: '个人信息', icon: 'form' }
-  //     },
-  //     {
-  //       path: 'list',
-  //       name: 'list',
-  //       component: () => import('@/views/user/list'),
-  //       meta: { title: '用户列表', icon: 'table',  roles: ['系统管理员']  }
-  //     }
-  //   ]
-  // },
 
   {
     path: '/form',
