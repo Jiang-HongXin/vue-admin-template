@@ -55,27 +55,27 @@ export const constantRoutes = [
     }]
   },
 
-  {
-    path: '/user',
-    component: Layout,
-    redirect: '/example/table',
-    name: '用户信息',
-    meta: { title: '用户信息', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'info',
-        name: 'info',
-        component: () => import('@/views/user/info'),
-        meta: { title: '个人信息', icon: 'form' }
-      },
-      {
-        path: 'list',
-        name: 'list',
-        component: () => import('@/views/user/list'),
-        meta: { title: '用户列表', icon: 'table' }
-      }
-    ]
-  },
+  // {
+  //   path: '/user',
+  //   component: Layout,
+  //   redirect: '/example/table',
+  //   name: '用户信息',
+  //   meta: { title: '用户信息', icon: 'el-icon-s-help' },
+  //   children: [
+  //     {
+  //       path: 'info',
+  //       name: 'info',
+  //       component: () => import('@/views/user/info'),
+  //       meta: { title: '个人信息', icon: 'form' }
+  //     },
+  //     {
+  //       path: 'list',
+  //       name: 'list',
+  //       component: () => import('@/views/user/list'),
+  //       meta: { title: '用户列表', icon: 'table',  roles: ['系统管理员']  }
+  //     }
+  //   ]
+  // },
 
   {
     path: '/form',
@@ -164,13 +164,15 @@ export const constantRoutes = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 
+
+
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
 
-const router = createRouter()
+let router = createRouter()
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
@@ -179,3 +181,61 @@ export function resetRouter() {
 }
 
 export default router
+
+
+
+/**
+ * 权限路由
+ * @returns {VueRouter}
+ */
+export const asyncRoutes = [
+  {
+    path: '/user',
+    component: Layout,
+    redirect: '/example/table',
+    name: '用户信息',
+    meta: { title: '用户信息', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'info',
+        name: 'info',
+        component: () => import('@/views/user/info'),
+        meta: { title: '个人信息', icon: 'form' }
+      },
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/user/list'),
+        meta: { title: '用户列表', icon: 'table',  roles: ['系统管理员']  }
+      }
+    ]
+  }
+]
+
+export function addRoutes(role) {
+  const newRoutes = filterAsyncRoutes(asyncRoutes, role);
+  router.options.routes = constantRoutes.concat(newRoutes);
+  router.addRoutes(newRoutes)
+}
+function hasPermission(route, role) {
+  if (route.meta && route.meta.roles) {
+    return route.meta.roles.includes(role)
+  } else {
+    return true
+  }
+}
+function filterAsyncRoutes(routes, role) {
+  const res = []
+
+  routes.forEach(route => {
+    const tmp = { ...route }
+    if (hasPermission(tmp, role)) {
+      if (tmp.children) {
+        tmp.children = filterAsyncRoutes(tmp.children, role)
+      }
+      res.push(tmp)
+    }
+  })
+
+  return res
+}

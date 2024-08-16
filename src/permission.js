@@ -1,4 +1,4 @@
-import router from './router'
+import router, {addRoutes} from './router'
 import store from './store'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
@@ -29,6 +29,8 @@ router.beforeEach(async(to, from, next) => {
       const hasGetUserInfo = store.getters.name
       if (hasGetUserInfo) {
         next()
+
+        addRoutes(store.getters.role)
       } else {
         try {
           next()
