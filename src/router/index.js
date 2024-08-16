@@ -56,14 +56,15 @@ export const constantRoutes = [
   },
 
   {
-    path: '/form',
+    path: '/honor',
     component: Layout,
+    redirect: '/honor/addHonor',
     children: [
       {
-        path: 'index',
+        path: 'addHonor',
         name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        component: () => import('@/views/honor/AddHonor'),
+        meta: { title: '增加荣誉', icon: 'form' }
       }
     ]
   },
@@ -191,8 +192,8 @@ export const asyncRoutes = [
 ]
 
 export function addRoutes(role) {
-  const newRoutes = filterAsyncRoutes(asyncRoutes, role);
-  router.options.routes = constantRoutes.concat(newRoutes);
+  let newRoutes = filterAsyncRoutes(asyncRoutes, role);
+  router.options.routes = constantRoutes.concat(newRoutes)
   router.addRoutes(newRoutes)
 }
 function hasPermission(route, role) {

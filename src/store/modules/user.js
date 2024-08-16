@@ -1,7 +1,8 @@
 import { login, logout } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import {resetRouter} from '@/router'
+import {addRoutes, resetRouter} from '@/router'
 import {Message} from "element-ui";
+import store from "@/store";
 
 const getDefaultState = () => {
   return {
@@ -32,6 +33,8 @@ const actions = {
         const data = response.data
         Object.assign(state, data);
         setToken(data.token)
+        addRoutes(store.getters.role)
+
         resolve()
       }).catch(error => {
         Message({

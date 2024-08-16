@@ -32,7 +32,6 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: '主页',
   computed: {
     ...mapGetters([
       'name', 'modifyTime', 'createTime', 'role', 'phone', 'password'

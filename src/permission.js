@@ -29,8 +29,6 @@ router.beforeEach(async(to, from, next) => {
       const hasGetUserInfo = store.getters.name
       if (hasGetUserInfo) {
         next()
-
-        addRoutes(store.getters.role)
       } else {
         try {
           next()
