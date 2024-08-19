@@ -16,10 +16,27 @@ export function uploadFile(data) {
   })
 }
 
+export function downloadFile(data) {
+  return request({
+    url: '/honor/download/' + data.fileIndex,
+    method: 'get',
+    responseType: 'blob'
+  })
+}
+
 
 export function addHonor(data) {
   return request({
     url: '/honor/insert',
+    method: 'post',
+    data
+  })
+}
+
+
+export function listHonor(data) {
+  return request({
+    url: '/honor/list',
     method: 'post',
     data
   })

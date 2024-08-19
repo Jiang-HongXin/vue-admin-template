@@ -43,6 +43,17 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
+
+    /**
+     * 文件流响应处理
+     */
+    const respContentType = response.headers['content-type']
+    console.log(response)
+    console.log(typeof respContentType)
+    if (respContentType && respContentType !== "application/json") {
+      return response
+    }
+
     const res = response.data
 
     if (res.code !== 0) {
@@ -57,7 +68,7 @@ service.interceptors.response.use(
         // to re-login
         MessageBox.confirm('你的登录状态已过期，请重新登录！', '确认', {
           confirmButtonText: '确认',
-          cancelButtonText: '取消',
+          // cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           store.dispatch('user/resetToken').then(() => {

@@ -39,12 +39,19 @@
           <span>{{ scope.row.display_time }}</span>
         </template>
       </el-table-column>
+
+      <el-table-column align="center" prop="created_at" label="图片" width="200">
+        <template slot-scope="scope">
+          <i class="el-icon-time" />
+          <img :src="src"  alt=""/>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-import { getList } from '@/api/table'
+import {downloadFile, listHonor} from "@/api/honor";
 
 export default {
   filters: {
@@ -60,7 +67,17 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true
+      listLoading: true,
+      form: {
+        name: '',
+        date: '',
+        type: '',
+        level: '',
+        society: 1,
+        grade: '',
+        fileIndex: '',
+      },
+      src: ''
     }
   },
   created() {
@@ -69,11 +86,34 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getList().then(response => {
-        this.list = response.data.items
+      listHonor(this.form).then(response => {
+        this.list = response.data.data
+
+        this.list.forEach(item => {
+
+          if (item.fileIndex) {
+            const fileIndex = item.fileIndex.split(',')
+
+            const newForm = {}
+            newForm.fileIndex = fileIndex
+
+            downloadFile(newForm).then(res => {
+              console.log(res)
+              let flow = res.data
+              let blob = new Blob([flow])
+              this.src =  window.URL.createObjectURL(blob)
+
+            })
+          }
+        })
+
         this.listLoading = false
       })
     }
   }
 }
+
+
+
+
 </script>

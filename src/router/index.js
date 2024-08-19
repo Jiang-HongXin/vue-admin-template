@@ -58,14 +58,22 @@ export const constantRoutes = [
   {
     path: '/honor',
     component: Layout,
-    redirect: '/honor/addHonor',
+    alwaysShow: true,
+    redirect: '/honor/listHonor',
+    meta: { title: '荣誉管理', icon: 'el-icon-s-help' },
     children: [
+      {
+        path: 'listHonor',
+        name: 'Form',
+        component: () => import('@/views/honor/listHonor'),
+        meta: { title: '查看荣誉', icon: 'table' }
+      },
       {
         path: 'addHonor',
         name: 'Form',
         component: () => import('@/views/honor/AddHonor'),
         meta: { title: '增加荣誉', icon: 'form' }
-      }
+      },
     ]
   },
 
