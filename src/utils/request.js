@@ -48,8 +48,6 @@ service.interceptors.response.use(
      * 文件流响应处理
      */
     const respContentType = response.headers['content-type']
-    console.log(response)
-    console.log(typeof respContentType)
     if (respContentType && respContentType !== "application/json") {
       return response
     }

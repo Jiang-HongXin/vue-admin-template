@@ -33,11 +33,28 @@ export function addHonor(data) {
   })
 }
 
+export function updateHonor(data) {
+  return request({
+    url: '/honor/update',
+    method: 'post',
+    data
+  })
+}
+
 
 export function listHonor(data) {
   return request({
     url: '/honor/list',
     method: 'post',
     data
+  })
+}
+
+export function exportHonor(data) {
+  return request({
+    url: '/honor/export',
+    method: 'post',
+    data,
+    responseType: 'blob'
   })
 }

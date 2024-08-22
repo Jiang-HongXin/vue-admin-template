@@ -81,15 +81,15 @@
 <script>
 
 import {computed, onMounted, ref, reactive} from 'vue';
-import {addHonor, getDictionary, uploadFile} from "@/api/honor";
+import {updateHonor, getDictionary, uploadFile} from "@/api/honor";
 import {Message} from "element-ui";
-
-
-
 
 export default {
   mounted() {
-    console.log('onMounted....')
+    if (this.$route.query) {
+      Object.assign(this.form, this.$route.query);
+    }
+
     getDictionary().then(response => {
       const data = response.data
       this.gradeSelector = data.honorGrade
@@ -124,7 +124,7 @@ export default {
   methods: {
     onSubmit() {
       this.form.fileIndex = Array.from(this.fileIndexMap.values()).join(',')
-      addHonor(this.form).then(response => {
+      updateHonor(this.form).then(response => {
         console.log(response)
       })
 

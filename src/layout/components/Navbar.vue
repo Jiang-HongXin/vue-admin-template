@@ -30,10 +30,14 @@ import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 
-const imgSrc = require('@/icons/svg/user.svg')
 
 
 export default {
+  data() {
+    return {
+      imgSrc: require('@/icons/svg/user.svg')
+    }
+  },
   components: {
     Breadcrumb,
     Hamburger
