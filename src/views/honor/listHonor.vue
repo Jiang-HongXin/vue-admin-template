@@ -123,6 +123,7 @@
       <el-table-column label="操作" fixed="right">
         <template #default="scope">
           <ElButton  @click="openUpdateView(scope.row)"  type="text" :disabled="scope.row.auditing !== 0">修改</ElButton>
+          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 0" v-show="role === '教研组长' || role === '系统管理员'">初审</ElButton>
         </template>
       </el-table-column>
     </el-table>
@@ -143,9 +144,10 @@
 </template>
 
 <script>
-import {downloadFile, getDictionary, listHonor, exportHonor, uploadFile, updateHonor} from "@/api/honor";
+import {downloadFile, getDictionary, listHonor, exportHonor, auditHonor} from "@/api/honor";
 import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
 import {Message} from "element-ui";
+import {mapGetters} from "vuex";
 
 export default {
   filters: {
@@ -160,6 +162,11 @@ export default {
   },
   components: {
     ElImageViewer
+  },
+  computed: {
+    ...mapGetters([
+      'role'
+    ])
   },
   mounted() {
     getDictionary().then(response => {
@@ -263,6 +270,29 @@ export default {
      */
     openUpdateView(data) {
       this.$router.push({ path: '/honor/updateHonor', query: data})
+    },
+    /**
+     * 初审
+     */
+    openAuditView(data) {
+      this.$confirm('确定是否初审通过？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(() => {
+        // 用户点击确认按钮后的回调函数
+        this.listLoading = true
+
+        auditHonor(data).then(response => {
+          this.$message({
+            message: '操作成功!',
+            type: 'success'
+          })
+          this.fetchData()
+        })
+      }).catch(() => {
+      }).finally(() => {
+        this.listLoading = false
+      })
     },
   }
 }

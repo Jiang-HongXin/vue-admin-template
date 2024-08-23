@@ -58,3 +58,11 @@ export function exportHonor(data) {
     responseType: 'blob'
   })
 }
+
+export function auditHonor(data) {
+  return request({
+    url: '/honor/audit',
+    method: 'post',
+    data,
+  })
+}

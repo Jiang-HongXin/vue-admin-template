@@ -8,43 +8,54 @@
       fit
       highlight-current-row
     >
-      <el-table-column align="center" label="ID" width="95">
+
+      <el-table-column label="名称"  align="center">
         <template slot-scope="scope">
-          {{ scope.$index }}
+          {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column label="Title">
+
+      <el-table-column label="学科"  align="center">
         <template slot-scope="scope">
-          {{ scope.row.title }}
+          <span>{{ scope.row.subject }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
+
+      <el-table-column label="手机号"  align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          <span>{{ scope.row.phone }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Pageviews" width="110" align="center">
+
+      <el-table-column label="密码"  align="center">
         <template slot-scope="scope">
-          {{ scope.row.pageviews }}
+          <span>{{ scope.row.password }}</span>
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time" />
-          <span>{{ scope.row.display_time }}</span>
+
+      <el-table-column label="操作" fixed="right">
+        <template #default="scope">
+          <ElButton  @click="updatePassword(scope.row)"  type="text">修改</ElButton>
         </template>
       </el-table-column>
     </el-table>
+
+    <!-- 分页   -->
+    <div  style="float: right; margin-top: 10px">
+      <el-pagination
+        @current-change="fetchData"
+        :current-page.sync="currentPage"
+        :total="total"
+        :small="false"
+        layout="prev, pager, next">
+      </el-pagination>
+    </div>
+
   </div>
 </template>
 
 <script>
-import { getList } from '@/api/table'
+import { list, update} from '@/api/user'
 
 export default {
   filters: {
@@ -60,7 +71,12 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true
+      listLoading: true,
+
+      form: {
+        pageIndex: 0,
+        pageSize: 10,
+      }
     }
   },
   created() {
@@ -69,11 +85,44 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getList().then(response => {
-        this.list = response.data.items
+      list(this.form).then(response => {
+        this.list = response.data.data
+        this.total = response.data.total
         this.listLoading = false
       })
-    }
+    },
+    updatePassword(data) {
+      this.$prompt(
+        '请输入新密码:', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+        }
+      ).then(({value}) => {
+        const updateForm = {}
+        Object.assign(updateForm, data)
+        updateForm.password = value
+
+        this.listLoading = true
+
+        update(updateForm).then(response => {
+          if (response.code === 0) {
+            this.$message({
+              message: '操作成功!',
+              type: 'success'
+            })
+
+            this.fetchData()
+          } else {
+            this.$message({
+              message: '操作失败!请联系管理员！',
+              type: 'error'
+            })
+          }
+        }).finally(() => {
+          this.listLoading = true
+        })
+      })
+    },
   }
 }
 </script>

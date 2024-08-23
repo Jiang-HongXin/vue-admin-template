@@ -14,3 +14,19 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function list(data) {
+  return request({
+    url: '/user/list',
+    method: 'post',
+    data
+  })
+}
+
+export function update(data) {
+  return request({
+    url: '/user/update',
+    method: 'post',
+    data
+  })
+}

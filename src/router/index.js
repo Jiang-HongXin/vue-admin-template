@@ -113,23 +113,23 @@ export default router
  */
 export const asyncRoutes = [
   {
-    path: '/user',
+    path: '/groupLeader',
     component: Layout,
-    redirect: '/example/table',
-    name: '用户信息',
-    meta: { title: '用户信息', icon: 'el-icon-s-help' },
+    redirect: '/groupLeader',
+    name: '组长权限',
+    meta: { title: '组长权限', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'info',
+        path: 'listHonor',
         name: 'info',
-        component: () => import('@/views/user/info'),
-        meta: { title: '个人信息', icon: 'form' }
+        component: () => import('@/views/honor/listHonor'),
+        meta: { title: '查看学科教师获奖', icon: 'table', roles: ['系统管理员', '教研组长'] }
       },
       {
-        path: 'list',
-        name: 'list',
+        path: 'list11',
+        name: 'list11',
         component: () => import('@/views/user/list'),
-        meta: { title: '用户列表', icon: 'table',  roles: ['系统管理员']  }
+        meta: { title: '重制密码', icon: 'table',  roles: ['系统管理员', '教研组长']  }
       }
     ]
   }
