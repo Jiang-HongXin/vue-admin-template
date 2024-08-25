@@ -122,8 +122,10 @@
 
       <el-table-column label="操作" fixed="right">
         <template #default="scope">
-          <ElButton  @click="openUpdateView(scope.row)"  type="text" :disabled="scope.row.auditing !== 0">修改</ElButton>
+          <ElButton  @click="openUpdateView(scope.row)"  type="text" :disabled="scope.row.auditing !== 2">修改</ElButton>
           <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 0" v-show="role === '教研组长' || role === '系统管理员'">初审</ElButton>
+          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 1" v-show="role === '教科室主任' || role === '系统管理员'">复审</ElButton>
+          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing < 2" v-show="role === '教科室主任' || role === '系统管理员'">打回</ElButton>
         </template>
       </el-table-column>
     </el-table>
@@ -272,10 +274,13 @@ export default {
       this.$router.push({ path: '/honor/updateHonor', query: data})
     },
     /**
-     * 初审
+     * 初审 or 复审
      */
     openAuditView(data) {
-      this.$confirm('确定是否初审通过？', '提示', {
+      const msg = data.auditing === 2 ? '确定是否打回该记录? ' :
+        '确定是否' + (data.auditing === 0 ? '初审' : '复审') + '通过？'
+
+      this.$confirm(msg, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消'
       }).then(() => {

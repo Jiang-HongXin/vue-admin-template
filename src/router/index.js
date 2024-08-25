@@ -121,15 +121,47 @@ export const asyncRoutes = [
     children: [
       {
         path: 'listHonor',
-        name: 'info',
+        name: 'listHonor',
         component: () => import('@/views/honor/listHonor'),
         meta: { title: '查看学科教师获奖', icon: 'table', roles: ['系统管理员', '教研组长'] }
       },
       {
-        path: 'list11',
-        name: 'list11',
+        path: 'listUser',
+        name: 'listUser',
         component: () => import('@/views/user/list'),
         meta: { title: '重制密码', icon: 'table',  roles: ['系统管理员', '教研组长']  }
+      }
+    ]
+  },
+  {
+    path: '/head',
+    component: Layout,
+    redirect: '/head',
+    name: '主任权限',
+    meta: { title: '主任权限', icon: 'el-icon-s-help' },
+    alwaysShow: true,
+    children: [
+      {
+        path: 'listHonor',
+        name: 'info',
+        component: () => import('@/views/honor/listHonor'),
+        meta: { title: '查看学科教师获奖', icon: 'table', roles: ['系统管理员', '教科室主任'] }
+      }
+    ]
+  },
+  {
+    path: '/admin',
+    component: Layout,
+    redirect: '/admin',
+    name: '管理员权限',
+    meta: { title: '管理员权限', icon: 'el-icon-s-help' },
+    alwaysShow: true,
+    children: [
+      {
+        path: 'listUser',
+        name: 'listUser',
+        component: () => import('@/views/user/list'),
+        meta: { title: '用户管理', icon: 'table', roles: ['系统管理员'] }
       }
     ]
   }
