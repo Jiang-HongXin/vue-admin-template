@@ -158,10 +158,10 @@ export const asyncRoutes = [
     alwaysShow: true,
     children: [
       {
-        path: 'listUser',
-        name: 'listUser',
-        component: () => import('@/views/user/list'),
-        meta: { title: '用户管理', icon: 'table', roles: ['系统管理员'] }
+        path: 'importUser',
+        name: 'importUser',
+        component: () => import('@/views/user/import'),
+        meta: { title: '导入教师名单', icon: 'table', roles: ['系统管理员'] }
       }
     ]
   }
