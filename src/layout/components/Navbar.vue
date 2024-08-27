@@ -4,19 +4,13 @@
 
     <breadcrumb class="breadcrumb-container" />
 
-    <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
+    <div class="right-menu" style="margin-right: 20px">
+      <el-dropdown class="el-dropdown-link" trigger="click" >
         <div class="avatar-wrapper">
-          <img :src="imgSrc" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          你好, {{name}}<i class="el-icon-arrow-down el-icon--right"></i>
         </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
-            <el-dropdown-item>
-              个人主页
-            </el-dropdown-item>
-          </router-link>
-          <el-dropdown-item divided @click.native="logout">
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item @click.native="logout">
             <span style="display:block;">登出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -45,7 +39,8 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'avatar',
+      'name'
     ])
   },
   methods: {
@@ -112,29 +107,6 @@ export default {
       }
     }
 
-    .avatar-container {
-      margin-right: 30px;
-
-      .avatar-wrapper {
-        margin-top: 5px;
-        position: relative;
-
-        .user-avatar {
-          cursor: pointer;
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-        }
-
-        .el-icon-caret-bottom {
-          cursor: pointer;
-          position: absolute;
-          right: -20px;
-          top: 25px;
-          font-size: 12px;
-        }
-      }
-    }
   }
 }
 </style>
