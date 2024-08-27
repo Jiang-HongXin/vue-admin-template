@@ -31,7 +31,12 @@ router.beforeEach(async(to, from, next) => {
         next()
       } else {
         try {
-          next()
+          // 刷新页面
+          if (store.getters.role.length === 0) {
+            await store.dispatch('user/info')
+          }
+          const fromPath = GetUrlRelativePath(window.location.href)
+          next({ path: fromPath, replace: true })
         } catch (error) {
           // remove token and go to login page to re-login
           await store.dispatch('user/resetToken')
@@ -59,3 +64,15 @@ router.afterEach(() => {
   // finish progress bar
   NProgress.done()
 })
+
+export function GetUrlRelativePath(url) {
+  const arrUrl = url.split('//');
+
+  const start = arrUrl[1].indexOf('/')
+  let relUrl = arrUrl[1].substring(start)
+
+  if (relUrl.indexOf('?') !== -1) {
+    relUrl = relUrl.split('?')[0]
+  }
+  return relUrl.substring(2)
+}

@@ -30,3 +30,10 @@ export function update(data) {
     data
   })
 }
+
+export function info() {
+  return request({
+    url: '/user/info',
+    method: 'get'
+  })
+}

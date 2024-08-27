@@ -1,4 +1,4 @@
-import { login, logout } from '@/api/user'
+import {info, login, logout} from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import {addRoutes, resetRouter} from '@/router'
 import {Message} from "element-ui";
@@ -34,6 +34,25 @@ const actions = {
         Object.assign(state, data);
         setToken(data.token)
         addRoutes(store.getters.role)
+
+        resolve()
+      }).catch(error => {
+        Message({
+          message: error || 'Error',
+          type: 'error',
+          duration: 5 * 1000
+        })
+        reject(error)
+      })
+    })
+  },
+
+  info() {
+    return new Promise((resolve, reject) => {
+      info().then(response => {
+        const data = response.data
+        Object.assign(state, data);
+        addRoutes(data.role)
 
         resolve()
       }).catch(error => {
