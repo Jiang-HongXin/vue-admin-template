@@ -162,6 +162,18 @@ export const asyncRoutes = [
         name: 'importUser',
         component: () => import('@/views/user/import'),
         meta: { title: '导入教师名单', icon: 'table', roles: ['系统管理员'] }
+      },
+      {
+        path: 'listUser',
+        name: 'listUser',
+        component: () => import('@/views/user/list'),
+        meta: { title: '人员管理', icon: 'table', roles: ['系统管理员'] }
+      },
+      {
+        path: 'dictionary',
+        name: 'dictionary',
+        component: () => import('@/views/dictionary/index'),
+        meta: { title: '词条管理', icon: 'table', roles: ['系统管理员'] }
       }
     ]
   }

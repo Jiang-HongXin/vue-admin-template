@@ -173,9 +173,10 @@ export default {
   mounted() {
     getDictionary().then(response => {
       const data = response.data
-      this.gradeSelector = data.honorGrade
-      this.typeSelector = data.honorType
-      this.levelSelector = data.honorLevel
+      this.gradeSelector = data['荣誉级别']
+      this.typeSelector = data['荣誉类型']
+      this.levelSelector = data['荣誉等级']
+
     }).catch(error => {
       Message({
         message: error || 'Error',

@@ -15,3 +15,27 @@ export function importData(data) {
     data
   })
 }
+
+export function getDictionaryV2(data) {
+  return request({
+    url: '/admin/dic/listV2',
+    method: 'get',
+    data
+  })
+}
+
+export function operateDictionary(data) {
+  return request({
+    url: '/admin/dic/operate',
+    method: 'post',
+    data
+  })
+}
+
+export function deleteDictionary(data) {
+  return request({
+    url: '/admin/dic/delete',
+    method: 'post',
+    data
+  })
+}
