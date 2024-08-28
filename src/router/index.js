@@ -123,13 +123,13 @@ export const asyncRoutes = [
         path: 'listHonor',
         name: 'listHonor',
         component: () => import('@/views/honor/listHonor'),
-        meta: { title: '查看学科教师获奖', icon: 'table', roles: ['系统管理员', '教研组长'] }
+        meta: { title: '查看学科教师获奖', icon: 'table', roles: ['教研组长'] }
       },
       {
         path: 'listUser',
         name: 'listUser',
         component: () => import('@/views/user/list'),
-        meta: { title: '重制密码', icon: 'table',  roles: ['系统管理员', '教研组长']  }
+        meta: { title: '重制密码', icon: 'table',  roles: ['教研组长']  }
       }
     ]
   },
@@ -138,14 +138,14 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/head',
     name: '主任权限',
-    meta: { title: '主任权限', icon: 'el-icon-s-help' },
+    meta: { title: '主任权限', icon: 'el-icon-s-help',  roles: ['教科室主任']},
     alwaysShow: true,
     children: [
       {
         path: 'listHonor',
         name: 'info',
         component: () => import('@/views/honor/listHonor'),
-        meta: { title: '查看学科教师获奖', icon: 'table', roles: ['系统管理员', '教科室主任'] }
+        meta: { title: '查看学科教师获奖', icon: 'table', roles: ['教科室主任'] }
       }
     ]
   },

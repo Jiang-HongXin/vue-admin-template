@@ -123,9 +123,9 @@
       <el-table-column label="操作" fixed="right">
         <template #default="scope">
           <ElButton  @click="openUpdateView(scope.row)"  type="text" :disabled="scope.row.auditing !== 2">修改</ElButton>
-          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 0" v-show="role === '教研组长' || role === '系统管理员'">初审</ElButton>
-          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 1" v-show="role === '教科室主任' || role === '系统管理员'">复审</ElButton>
-          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing < 2" v-show="role === '教科室主任' || role === '系统管理员'">打回</ElButton>
+          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 0" v-show="role === '教研组长'">初审</ElButton>
+          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 1" v-show="role === '教科室主任'">复审</ElButton>
+          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing < 2" v-show="role === '教科室主任'">打回</ElButton>
         </template>
       </el-table-column>
     </el-table>

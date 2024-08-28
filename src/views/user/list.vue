@@ -73,7 +73,7 @@
 
       <el-table-column label="操作" fixed="right">
         <template #default="scope">
-          <ElButton  @click="updatePassword(scope.row)"  type="text" v-show="role === '教研组长' || role === '系统管理员'">修改密码</ElButton>
+          <ElButton  @click="updatePassword(scope.row)"  type="text" v-show="role === '教研组长'">修改密码</ElButton>
           <ElButton  @click="onClickUpdateBtn(scope.row)"  type="text" v-show="role === '系统管理员'">修改人员信息</ElButton>
 
         </template>
