@@ -59,7 +59,6 @@ export const constantRoutes = [
     path: '/honor',
     component: Layout,
     alwaysShow: true,
-    redirect: '/honor/listHonor',
     meta: { title: '荣誉管理', icon: 'el-icon-s-help' },
     children: [
       {
@@ -115,9 +114,8 @@ export const asyncRoutes = [
   {
     path: '/groupLeader',
     component: Layout,
-    redirect: '/groupLeader',
     name: '组长权限',
-    meta: { title: '组长权限', icon: 'el-icon-s-help' },
+    meta: { title: '组长权限', icon: 'el-icon-s-help', roles: ['教研组长'] },
     children: [
       {
         path: 'listHonor',
@@ -136,7 +134,6 @@ export const asyncRoutes = [
   {
     path: '/head',
     component: Layout,
-    redirect: '/head',
     name: '主任权限',
     meta: { title: '主任权限', icon: 'el-icon-s-help',  roles: ['教科室主任']},
     alwaysShow: true,
@@ -152,9 +149,8 @@ export const asyncRoutes = [
   {
     path: '/admin',
     component: Layout,
-    redirect: '/admin',
     name: '管理员权限',
-    meta: { title: '管理员权限', icon: 'el-icon-s-help' },
+    meta: { title: '管理员权限', icon: 'el-icon-s-help', roles: ['系统管理员'] },
     alwaysShow: true,
     children: [
       {

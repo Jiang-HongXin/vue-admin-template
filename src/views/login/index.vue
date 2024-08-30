@@ -69,8 +69,8 @@ export default {
     }
     return {
       loginForm: {
-        phone: '',
-        password: ''
+        phone: '10000',
+        password: '123456'
       },
       loginRules: {
         phone: [{ required: true, trigger: 'blur', validator: validatePhone }],

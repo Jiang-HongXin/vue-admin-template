@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="120px">
       <el-form-item label="荣誉名称">
-        <el-input v-model="form.name" />
+        <el-input v-model="form.name" :style="{width: '200px'}"/>
       </el-form-item>
 
       <el-form-item label="获奖时间">
@@ -10,7 +10,9 @@
           v-model="form.date"
           value-format="yyyy-MM"
           type="month"
-          placeholder="选择获奖时间">
+          placeholder="选择获奖时间"
+          :style="{width: '200px'}"
+        >
         </el-date-picker>
       </el-form-item>
 
@@ -71,8 +73,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">Create</el-button>
-        <el-button @click="onCancel">Cancel</el-button>
+        <el-button type="primary" @click="onSubmit">确认上传</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -82,14 +83,14 @@
 
 import {computed, onMounted, ref, reactive} from 'vue';
 import {addHonor, getDictionary, uploadFile} from "@/api/honor";
-import {Message} from "element-ui";
+import {Message, MessageBox} from "element-ui";
+import store from "@/store";
 
 
 
 
 export default {
   mounted() {
-    console.log('onMounted....')
     getDictionary().then(response => {
       const data = response.data
       this.gradeSelector = data['荣誉级别']
@@ -125,15 +126,14 @@ export default {
     onSubmit() {
       this.form.fileIndex = Array.from(this.fileIndexMap.values()).join(',')
       addHonor(this.form).then(response => {
-        console.log(response)
-      })
-
-      this.$message('submit!')
-    },
-    onCancel() {
-      this.$message({
-        message: 'cancel!',
-        type: 'warning'
+        if (response.code === 0) {
+          MessageBox.confirm('上传成功! 是否前往证书列表进行查看?', '操作结果通知', {
+            cancelButtonText: '否',
+            confirmButtonText: '是',
+          }).then(() => {
+            this.$router.push("/honor/listHonor")
+          })
+        }
       })
     },
     handleChange(file, fileList) {

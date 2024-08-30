@@ -3,54 +3,86 @@
     <!-- 表格选项   -->
     <el-form :inline="true"  ref="form" :model="form" >
 
-      <el-form-item label="获奖时间">
-        <el-date-picker
-          v-model="form.date"
-          type="month"
-          placeholder="选择获奖时间">
-        </el-date-picker>
-      </el-form-item>
+      <el-row>
+        <el-col :span="6">
+          <el-form-item label="获奖时间">
+          <el-date-picker
+            v-model="form.date"
+            type="month"
+            placeholder="选择获奖时间"
+            :style="{width: '200px'}">
+          </el-date-picker>
+        </el-form-item>
+        </el-col>
 
-      <el-form-item label="获奖类别" >
-        <el-select v-model="form.type" placeholder="请选择" clearable>
-          <el-option
-            v-for="item in typeSelector"
-            :key="item.value"
-            :label="item.value"
-            :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item>
+        <el-col :span="6">
+          <el-form-item label="获奖类别" >
+            <el-select v-model="form.type" placeholder="请选择" clearable>
+              <el-option
+                v-for="item in typeSelector"
+                :key="item.value"
+                :label="item.value"
+                :value="item.value"
+                :style="{width: '200px'}">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
 
-      <el-form-item label="获奖级别">
-        <el-select v-model="form.grade" placeholder="请选择" clearable>
-          <el-option
-            v-for="item in gradeSelector"
-            :key="item.value"
-            :label="item.value"
-            :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item>
+        <el-col :span="6">
+          <el-form-item label="获奖级别">
+          <el-select v-model="form.grade" placeholder="请选择" clearable>
+            <el-option
+              v-for="item in gradeSelector"
+              :key="item.value"
+              :label="item.value"
+              :value="item.value"
+              :style="{width: '200px'}">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        </el-col>
+      </el-row>
 
-      <el-form-item label="获奖等级">
-        <el-select v-model="form.level" placeholder="请选择" clearable>
-          <el-option
-            v-for="item in levelSelector"
-            :key="item.value"
-            :label="item.value"
-            :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item>
+      <el-row>
+        <el-col :span="6">
+          <el-form-item label="获奖等级">
+            <el-select v-model="form.level" placeholder="请选择" clearable>
+              <el-option
+                v-for="item in levelSelector"
+                :key="item.value"
+                :label="item.value"
+                :value="item.value"
+                :style="{width: '200px'}">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
 
-      <el-form-item>
-        <ElButton type="primary" @click="fetchData">搜索</ElButton>
-      </el-form-item>
+        <el-col :span="6">
+          <el-form-item label="审核状态">
+            <el-select v-model="form.auditing" placeholder="请选择" clearable>
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+                :style="{width: '200px'}">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
 
-      <el-form-item>
-        <ElButton type="primary" @click="exportData">导出当前页数据</ElButton>
-      </el-form-item>
+        <el-col :span="6">
+          <el-form-item>
+            <ElButton type="primary" @click="fetchData">搜索</ElButton>
+          </el-form-item>
+
+          <el-form-item>
+            <ElButton type="primary" @click="exportData">导出当前页数据</ElButton>
+          </el-form-item>
+        </el-col>
+      </el-row>
 
     </el-form>
 
@@ -122,7 +154,7 @@
 
       <el-table-column label="操作" fixed="right">
         <template #default="scope">
-          <ElButton  @click="openUpdateView(scope.row)"  type="text" :disabled="scope.row.auditing !== 2">修改</ElButton>
+          <ElButton  @click="openUpdateView(scope.row)"  type="text" :disabled="scope.row.auditing === 2">修改</ElButton>
           <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 0" v-show="role === '教研组长'">初审</ElButton>
           <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 1" v-show="role === '教科室主任'">复审</ElButton>
           <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing < 2" v-show="role === '教科室主任'">打回</ElButton>
@@ -141,14 +173,106 @@
       </el-pagination>
     </div>
 
+    <!-- 修改 -->
+    <el-dialog title="修改信息" :visible.sync="dialogFormVisible">
+      <el-form ref="form" :model="honor" label-width="120px">
+        <el-form-item label="荣誉名称">
+          <el-input v-model="honor.name" :style="{width: '200px'}"/>
+        </el-form-item>
+
+        <el-form-item label="获奖时间">
+          <el-date-picker
+            v-model="honor.date"
+            value-format="yyyy-MM"
+            type="month"
+            placeholder="选择获奖时间"
+            :style="{width: '200px'}"
+          >
+          </el-date-picker>
+        </el-form-item>
+
+        <el-form-item label="获奖类别">
+          <el-select v-model="honor.type" placeholder="请选择">
+            <el-option
+              v-for="item in typeSelector"
+              :key="item.value"
+              :label="item.value"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="获奖级别">
+          <el-select v-model="honor.grade" placeholder="请选择">
+            <el-option
+              v-for="item in gradeSelector"
+              :key="item.value"
+              :label="item.value"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="获奖等级">
+          <el-select v-model="honor.level" placeholder="请选择">
+            <el-option
+              v-for="item in levelSelector"
+              :key="item.value"
+              :label="item.value"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="是否协会性质">
+          <el-switch v-model="honor.society"
+                     :active-value="1"
+                     :inactive-value="0"
+          />
+        </el-form-item>
+
+        <el-form-item label="证书照片">
+          <el-upload
+            class="upload-demo"
+            action=""
+            :on-preview="handlePreview"
+            :http-request="uploadFiles"
+            :on-remove="handleRemove"
+            :before-upload="handleBefore"
+            :file-list="fileList"
+            :limit="3"
+            list-type="picture-card"
+            multiple
+          >
+            <el-button size="small" type="primary">点击上传</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb，最多上传三张</div>
+          </el-upload>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">确认上传</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+
+
   </div>
 
 </template>
 
 <script>
-import {downloadFile, getDictionary, listHonor, exportHonor, auditHonor} from "@/api/honor";
+import {
+  downloadFile,
+  getDictionary,
+  listHonor,
+  exportHonor,
+  auditHonor,
+  addHonor,
+  uploadFile,
+  updateHonor
+} from "@/api/honor";
 import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
-import {Message} from "element-ui";
+import {Message, MessageBox} from "element-ui";
 import {mapGetters} from "vuex";
 
 export default {
@@ -163,7 +287,7 @@ export default {
     }
   },
   components: {
-    ElImageViewer
+    ElImageViewer,
   },
   computed: {
     ...mapGetters([
@@ -198,6 +322,7 @@ export default {
         level: '',
         society: 1,
         grade: '',
+        auditing: '',
         fileIndex: '',
         pageIndex: 0,
         pageSize: 10,
@@ -208,6 +333,32 @@ export default {
       typeSelector: [],
       levelSelector: [],
       gradeSelector: [],
+      dialogFormVisible: false,
+      options: [{
+        value: 0,
+        label: '未审核'
+      }, {
+        value: 1,
+        label: '待复审'
+      }, {
+        value: 2,
+        label: '已完成'
+      }
+      ],
+      honor: {
+        name: '',
+        date: '',
+        type: '',
+        level: '',
+        society: 1,
+        grade: '',
+        auditing: '',
+        fileIndex: '',
+        id: 0,
+      },
+
+      fileList: [],
+      fileIndexMap: new Map()
     }
   },
   created() {
@@ -217,26 +368,33 @@ export default {
     /**
      *  图片展示
      */
-    openView(fileIndex) {
+    async openView(fileIndex) {
+      await this.initUrls(fileIndex)
+      this.viewVisible = true;
+    },
+    closeView() {
+      this.viewVisible = false;
+    },
+    async initUrls(fileIndex) {
       const newFileIndex = fileIndex.split(',')
-
       const urls = []
       let length = 0
       for (let i = 0; i < newFileIndex.length; i++) {
         const newForm = {}
         newForm.fileIndex = newFileIndex[i]
 
-        downloadFile(newForm).then(res => {
+        await downloadFile(newForm).then(res => {
+          let name = res.headers['content-disposition'].substring(21)
+          this.fileIndexMap.set(name, newFileIndex[i])
+
           let flow = res.data
           let blob = new Blob([flow])
-          length = urls.push(window.URL.createObjectURL(blob))
+          const url = window.URL.createObjectURL(blob)
+          this.fileList.push({'url': url, 'name': name})
+          length = urls.push(url)
         })
       }
       this.urls = urls
-      this.viewVisible = true;
-    },
-    closeView() {
-      this.viewVisible = false;
     },
     /**
      * 拉数据
@@ -271,8 +429,12 @@ export default {
     /**
      * 更新
      */
-    openUpdateView(data) {
-      this.$router.push({ path: '/honor/updateHonor', query: data})
+    async openUpdateView(data) {
+      Object.assign(this.honor, data)
+      this.fileList = []
+      await this.initUrls(data.fileIndex)
+
+      this.dialogFormVisible = true
     },
     /**
      * 初审 or 复审
@@ -300,6 +462,53 @@ export default {
         this.listLoading = false
       })
     },
+    /**
+     * 上传
+     */
+    onSubmit() {
+      let api;
+      this.honor.fileIndex = Array.from(this.fileIndexMap.values()).join(',')
+
+      if (this.honor.id) {
+
+        api = updateHonor(this.honor);
+      } else {
+        api = addHonor(this.honor);
+      }
+      api.then(response => {
+        if (response.code === 0) {
+          MessageBox.confirm('操作成功！', '通知', {
+            // cancelButtonText: '否',
+            confirmButtonText: '确认',
+          }).then(() => {
+            this.dialogFormVisible = false
+            this.fetchData()
+          })
+        }
+      })
+    },
+    handleRemove(item) {
+      this.fileIndexMap.delete(item.name)
+    },
+    handlePreview(item) {
+      console.log(item)
+    },
+    handleBefore(file) {
+      if (this.fileIndexMap.get(file.name)) {
+        this.$message.error(file.name + ' 文件已存在！')
+        return false;
+      }
+      return true;
+    },
+    uploadFiles(item) {
+      let formData = new FormData()
+      formData.append('file', item.file)
+      uploadFile(formData).then(response => {
+        if (response.code === 0) {
+          this.fileIndexMap.set(item.file.name, response.data)
+        }
+      })
+    }
   }
 }
 

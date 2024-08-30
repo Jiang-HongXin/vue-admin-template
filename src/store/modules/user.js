@@ -37,11 +37,6 @@ const actions = {
 
         resolve()
       }).catch(error => {
-        Message({
-          message: error || 'Error',
-          type: 'error',
-          duration: 5 * 1000
-        })
         reject(error)
       })
     })
