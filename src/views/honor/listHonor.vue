@@ -380,19 +380,21 @@ export default {
       const urls = []
       let length = 0
       for (let i = 0; i < newFileIndex.length; i++) {
-        const newForm = {}
-        newForm.fileIndex = newFileIndex[i]
+        if (newFileIndex[i]) {
+          const newForm = {}
+          newForm.fileIndex = newFileIndex[i]
 
-        await downloadFile(newForm).then(res => {
-          let name = res.headers['content-disposition'].substring(21)
-          this.fileIndexMap.set(name, newFileIndex[i])
+          await downloadFile(newForm).then(res => {
+            let name = res.headers['content-disposition'].substring(21)
+            this.fileIndexMap.set(name, newFileIndex[i])
 
-          let flow = res.data
-          let blob = new Blob([flow])
-          const url = window.URL.createObjectURL(blob)
-          this.fileList.push({'url': url, 'name': name})
-          length = urls.push(url)
-        })
+            let flow = res.data
+            let blob = new Blob([flow])
+            const url = window.URL.createObjectURL(blob)
+            this.fileList.push({'url': url, 'name': name})
+            length = urls.push(url)
+          })
+        }
       }
       this.urls = urls
     },
