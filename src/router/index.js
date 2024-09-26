@@ -120,7 +120,7 @@ export const asyncRoutes = [
       {
         path: 'listHonor',
         name: 'listHonor',
-        component: () => import('@/views/honor/listHonor'),
+        component: () => import('@/views/honor/AuditHonor'),
         meta: { title: '查看学科教师获奖', icon: 'table', roles: ['教研组长'] }
       },
       {
@@ -141,7 +141,7 @@ export const asyncRoutes = [
       {
         path: 'listHonor',
         name: 'info',
-        component: () => import('@/views/honor/listHonor'),
+        component: () => import('@/views/honor/AuditHonor'),
         meta: { title: '查看学科教师获奖', icon: 'table', roles: ['教科室主任'] }
       }
     ]

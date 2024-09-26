@@ -49,7 +49,6 @@ export function listHonor(data) {
     data
   })
 }
-
 export function exportHonor(data) {
   return request({
     url: '/honor/export',

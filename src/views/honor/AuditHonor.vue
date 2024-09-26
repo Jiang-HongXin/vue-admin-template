@@ -98,8 +98,13 @@
       fit
       highlight-current-row
     >
+      <el-table-column label="教师姓名"  width="120">
+        <template slot-scope="scope">
+          {{ scope.row.userName }}
+        </template>
+      </el-table-column>
 
-      <el-table-column label="名称"  width="120">
+      <el-table-column label="证书名称"  width="120">
         <template slot-scope="scope">
           {{ scope.row.name }}
         </template>
@@ -155,6 +160,9 @@
       <el-table-column label="操作" fixed="right">
         <template #default="scope">
           <ElButton  @click="openUpdateView(scope.row)"  type="text" :disabled="scope.row.auditing === 2">修改</ElButton>
+          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 0" v-show="role === '教研组长'">初审</ElButton>
+          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 1" v-show="role === '教科室主任'">复审</ElButton>
+          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing < 2" v-show="role === '教科室主任'">打回</ElButton>
         </template>
       </el-table-column>
     </el-table>
@@ -323,7 +331,7 @@ export default {
         fileIndex: '',
         pageIndex: 0,
         pageSize: 10,
-        source: 0,
+        source: 1,
       },
       src: '',
       viewVisible: false,
@@ -402,7 +410,7 @@ export default {
     fetchData() {
       this.listLoading = true
       this.form.pageIndex = this.currentPage - 1
-      this.form.source = 0
+      this.form.source = 1
       listHonor(this.form).then(response => {
         this.list = response.data.data
         this.total = response.data.total
@@ -415,7 +423,7 @@ export default {
     exportData() {
       this.listLoading = true
       this.form.pageIndex = this.currentPage - 1
-      this.form.source = 0
+      this.form.source = 1
       exportHonor(this.form).then(res => {
 
         let blobUrl = window.URL.createObjectURL(res.data);
