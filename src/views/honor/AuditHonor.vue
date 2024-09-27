@@ -42,9 +42,7 @@
           </el-select>
         </el-form-item>
         </el-col>
-      </el-row>
 
-      <el-row>
         <el-col :span="6">
           <el-form-item label="获奖等级">
             <el-select v-model="form.level" placeholder="请选择" clearable>
@@ -56,6 +54,29 @@
                 :style="{width: '200px'}">
               </el-option>
             </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+
+      <el-row>
+        <el-col :span="6">
+          <el-form-item label="教师学科">
+            <el-select v-model="form.subject" placeholder="请选择" clearable>
+              <el-option
+                v-for="item in subjectSelector"
+                :key="item.value"
+                :label="item.value"
+                :value="item.value"
+                :style="{width: '200px'}">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="6">
+          <el-form-item label="教师姓名">
+            <el-input v-model="form.userName" :style="{width: '200px'}"/>
           </el-form-item>
         </el-col>
 
@@ -305,7 +326,7 @@ export default {
       this.gradeSelector = data['荣誉级别']
       this.typeSelector = data['荣誉类型']
       this.levelSelector = data['荣誉等级']
-
+      this.subjectSelector = data['教师科目']
     }).catch(error => {
       Message({
         message: error || 'Error',
@@ -326,6 +347,8 @@ export default {
         type: '',
         level: '',
         society: 1,
+        subject: '',
+        userName: '',
         grade: '',
         auditing: '',
         fileIndex: '',
@@ -339,6 +362,7 @@ export default {
       typeSelector: [],
       levelSelector: [],
       gradeSelector: [],
+      subjectSelector: [],
       dialogFormVisible: false,
       options: [{
         value: 0,
