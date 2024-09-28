@@ -68,7 +68,7 @@
           multiple
         >
           <el-button size="small" type="primary">点击上传</el-button>
-          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb，最多上传三张</div>
+          <div slot="tip" class="el-upload__tip">只能上传图片文件，且不超过5MB，最多上传三张</div>
         </el-upload>
       </el-form-item>
 
@@ -124,6 +124,16 @@ export default {
   },
   methods: {
     onSubmit() {
+      if (this.form.name === '' || this.form.date === '' || this.form.type === '' ||
+        this.form.level === '' || this.form.society === '' || this.form.grade === '' ) {
+        MessageBox.confirm('请检查信息是否填写完整！', '确认', {
+          confirmButtonText: '确认',
+          showCancelButton: false,
+        })
+        return;
+      }
+
+
       this.form.fileIndex = Array.from(this.fileIndexMap.values()).join(',')
       addHonor(this.form).then(response => {
         if (response.code === 0) {
