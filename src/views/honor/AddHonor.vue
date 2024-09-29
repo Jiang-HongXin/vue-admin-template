@@ -158,6 +158,15 @@ export default {
       uploadFile(formData).then(response => {
         if (response.code === 0) {
           this.fileIndexMap.set(item.file.name, response.data)
+          this.$message({
+            message: '上传成功!',
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            message: '上传失败，请重新上传!',
+            type: 'error'
+          })
         }
       })
     }
