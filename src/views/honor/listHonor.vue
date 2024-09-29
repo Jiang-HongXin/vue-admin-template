@@ -10,7 +10,7 @@
             v-model="form.date"
             type="month"
             placeholder="选择获奖时间"
-            :style="{width: '40%'}">
+            :style="{width: '200px'}">
           </el-date-picker>
         </el-form-item>
         </el-col>
@@ -23,7 +23,7 @@
                 :key="item.value"
                 :label="item.value"
                 :value="item.value"
-                :style="{width: '40%'}">
+                :style="{width: '200px'}">
               </el-option>
             </el-select>
           </el-form-item>
@@ -37,7 +37,7 @@
               :key="item.value"
               :label="item.value"
               :value="item.value"
-              :style="{width: '40%'}">
+              :style="{width: '200px'}">
             </el-option>
           </el-select>
         </el-form-item>
@@ -53,7 +53,7 @@
                 :key="item.value"
                 :label="item.value"
                 :value="item.value"
-                :style="{width: '40%'}">
+                :style="{width: '200px'}">
               </el-option>
             </el-select>
           </el-form-item>
@@ -67,7 +67,7 @@
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
-                :style="{width: '40%'}">
+                :style="{width: '200px'}">
               </el-option>
             </el-select>
           </el-form-item>
@@ -190,34 +190,37 @@
         </el-form-item>
 
         <el-form-item label="获奖类别">
-          <el-select v-model="honor.type" placeholder="请选择">
+          <el-select v-model="honor.type" placeholder="请选择" :style="{width: '40%'}">
             <el-option
               v-for="item in typeSelector"
               :key="item.value"
               :label="item.value"
-              :value="item.value">
+              :value="item.value"
+            >
             </el-option>
           </el-select>
         </el-form-item>
 
         <el-form-item label="获奖级别">
-          <el-select v-model="honor.grade" placeholder="请选择">
+          <el-select v-model="honor.grade" placeholder="请选择" :style="{width: '40%'}">
             <el-option
               v-for="item in gradeSelector"
               :key="item.value"
               :label="item.value"
-              :value="item.value">
+              :value="item.value"
+            >
             </el-option>
           </el-select>
         </el-form-item>
 
         <el-form-item label="获奖等级">
-          <el-select v-model="honor.level" placeholder="请选择">
+          <el-select v-model="honor.level" placeholder="请选择" :style="{width: '40%'}">
             <el-option
               v-for="item in levelSelector"
               :key="item.value"
               :label="item.value"
-              :value="item.value">
+              :value="item.value"
+            >
             </el-option>
           </el-select>
         </el-form-item>
@@ -511,6 +514,15 @@ export default {
       uploadFile(formData).then(response => {
         if (response.code === 0) {
           this.fileIndexMap.set(item.file.name, response.data)
+          this.$message({
+            message: '上传成功!',
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            message: '上传失败，请重新上传!',
+            type: 'error'
+          })
         }
       })
     }
