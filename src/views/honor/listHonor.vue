@@ -246,7 +246,8 @@
             multiple
           >
             <el-button size="small" type="primary">点击上传</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb，最多上传三张</div>
+            <div slot="tip" class="el-upload__tip">只能上传图片文件，且不超过5MB，最多上传三张</div>
+            <div slot="tip" class="el-upload__tip">接受的图片类型: .jpg, .jpeg, .png, .gif, .JPG, .JPEG, .PNG, .GIF</div>
           </el-upload>
         </el-form-item>
 
@@ -504,7 +505,18 @@ export default {
     handleBefore(file) {
       if (this.fileIndexMap.get(file.name)) {
         this.$message.error(file.name + ' 文件已存在！')
-        return false;
+        return Promise.reject(false);
+      }
+      let types = ['image/jpeg', 'image/jpg', 'image/gif', 'image/bmp', 'image/png'];
+      const isImage = types.includes(file.type);
+      if (!isImage) {
+        this.$message.error('上传图片只能是 JPG、JPEG、GIF、BMP、PNG 格式!');
+        return Promise.reject(false);
+      }
+      const isLtSize = file.size / 1024 / 1024 < 5;
+      if (!isLtSize) {
+        this.$message.error('上传图片大小不能超过5MB!');
+        return Promise.reject(false);
       }
       return true;
     },
