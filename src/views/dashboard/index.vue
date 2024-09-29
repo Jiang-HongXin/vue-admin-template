@@ -14,24 +14,24 @@
     <!-- 弹窗 -->
     <el-dialog title="修改信息" :visible.sync="dialogFormVisible">
       <el-form :model="user" ref="user">
-        <el-form-item label="名称" label-width="100px">
-          <el-input v-model="user.name"  :style="{width: '200px'}"/>
+        <el-form-item label="名称" label-width="15%">
+          <el-input v-model="user.name"  :style="{width: '40%'}"/>
         </el-form-item>
 
-        <el-form-item label="学科" label-width="100px">
-          <el-input v-model="user.subject"  :style="{width: '200px'}" disabled/>
+        <el-form-item label="学科" label-width="15%">
+          <el-input v-model="user.subject"  :style="{width: '40%'}" disabled/>
         </el-form-item>
 
-        <el-form-item label="手机号" label-width="100px">
-          <el-input v-model="user.phone"  :style="{width: '200px'}"/>
+        <el-form-item label="手机号" label-width="15%">
+          <el-input v-model="user.phone"  :style="{width: '40%'}"/>
         </el-form-item>
 
-        <el-form-item label="密码" label-width="100px">
-          <el-input v-model="user.password"  :style="{width: '200px'}"/>
+        <el-form-item label="密码" label-width="15%">
+          <el-input v-model="user.password"  :style="{width: '40%'}"/>
         </el-form-item>
 
-        <el-form-item label="权限" label-width="100px">
-          <el-input v-model="user.role"  :style="{width: '200px'}" disabled/>
+        <el-form-item label="权限" label-width="15%">
+          <el-input v-model="user.role"  :style="{width: '40%'}" disabled/>
         </el-form-item>
 
       </el-form>

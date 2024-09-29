@@ -59,8 +59,8 @@
     <!-- Form -->
     <el-dialog :title="dictionary.id ? '修改词条' : '新增词条'" :visible.sync="dialogFormVisible">
       <el-form :model="dictionary" ref="dictionary">
-        <el-form-item label="词条类型" label-width="100px">
-          <el-select v-model="dictionary.type" placeholder="请选择" :style="{width: '200px'}">
+        <el-form-item label="词条类型" label-width="15%">
+          <el-select v-model="dictionary.type" placeholder="请选择" :style="{width: '40%'}">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -71,13 +71,13 @@
         </el-form-item>
 
 
-        <el-form-item label="词条名称" label-width="100px">
-          <el-input v-model="dictionary.value"  :style="{width: '200px'}"/>
+        <el-form-item label="词条名称" label-width="15%">
+          <el-input v-model="dictionary.value"  :style="{width: '40%'}"/>
         </el-form-item>
 
 
-        <el-form-item label="展示优先级" label-width="100px">
-          <el-input v-model="dictionary.priority"  :style="{width: '200px'}"/>
+        <el-form-item label="展示优先级" label-width="15%">
+          <el-input v-model="dictionary.priority"  :style="{width: '40%'}"/>
         </el-form-item>
 
       </el-form>

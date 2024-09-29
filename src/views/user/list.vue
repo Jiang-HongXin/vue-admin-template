@@ -94,12 +94,12 @@
     <!-- Form -->
     <el-dialog title="修改信息" :visible.sync="dialogFormVisible">
       <el-form :model="user" ref="user">
-        <el-form-item label="名称" label-width="100px">
-          <el-input v-model="user.name"  :style="{width: '200px'}"/>
+        <el-form-item label="名称" label-width="15%">
+          <el-input v-model="user.name"  :style="{width: '40%'}"/>
         </el-form-item>
 
-        <el-form-item label="学科" label-width="100px">
-          <el-select v-model="user.subject" placeholder="请选择" :style="{width: '200px'}">
+        <el-form-item label="学科" label-width="15%">
+          <el-select v-model="user.subject" placeholder="请选择" :style="{width: '40%'}">
             <el-option
               v-for="item in subjectSelector"
               :key="item.value"
@@ -109,16 +109,16 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="手机号" label-width="100px">
-          <el-input v-model="user.phone"  :style="{width: '200px'}"/>
+        <el-form-item label="手机号" label-width="15%">
+          <el-input v-model="user.phone"  :style="{width: '40%'}"/>
         </el-form-item>
 
-        <el-form-item label="密码" label-width="100px">
-          <el-input v-model="user.password"  :style="{width: '200px'}"/>
+        <el-form-item label="密码" label-width="15%">
+          <el-input v-model="user.password"  :style="{width: '40%'}"/>
         </el-form-item>
 
-        <el-form-item label="权限" label-width="100px">
-          <el-select v-model="user.role" placeholder="请选择" :style="{width: '200px'}">
+        <el-form-item label="权限" label-width="15%">
+          <el-select v-model="user.role" placeholder="请选择" :style="{width: '40%'}">
             <el-option
               v-for="item in options"
               :key="item.value"

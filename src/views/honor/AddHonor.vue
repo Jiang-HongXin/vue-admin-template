@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="120px">
       <el-form-item label="荣誉名称">
-        <el-input v-model="form.name" :style="{width: '200px'}"/>
+        <el-input v-model="form.name" :style="{width: '40%'}"/>
       </el-form-item>
 
       <el-form-item label="获奖时间">
@@ -11,7 +11,7 @@
           value-format="yyyy-MM"
           type="month"
           placeholder="选择获奖时间"
-          :style="{width: '200px'}"
+          :style="{width: '40%'}"
         >
         </el-date-picker>
       </el-form-item>

@@ -10,7 +10,7 @@
             v-model="form.date"
             type="month"
             placeholder="选择获奖时间"
-            :style="{width: '200px'}">
+            :style="{width: '40%'}">
           </el-date-picker>
         </el-form-item>
         </el-col>
@@ -23,7 +23,7 @@
                 :key="item.value"
                 :label="item.value"
                 :value="item.value"
-                :style="{width: '200px'}">
+                :style="{width: '40%'}">
               </el-option>
             </el-select>
           </el-form-item>
@@ -37,7 +37,7 @@
               :key="item.value"
               :label="item.value"
               :value="item.value"
-              :style="{width: '200px'}">
+              :style="{width: '40%'}">
             </el-option>
           </el-select>
         </el-form-item>
@@ -51,7 +51,7 @@
                 :key="item.value"
                 :label="item.value"
                 :value="item.value"
-                :style="{width: '200px'}">
+                :style="{width: '40%'}">
               </el-option>
             </el-select>
           </el-form-item>
@@ -68,7 +68,7 @@
                 :key="item.value"
                 :label="item.value"
                 :value="item.value"
-                :style="{width: '200px'}">
+                :style="{width: '40%'}">
               </el-option>
             </el-select>
           </el-form-item>
@@ -76,7 +76,7 @@
 
         <el-col :span="6">
           <el-form-item label="教师姓名">
-            <el-input v-model="form.userName" :style="{width: '200px'}"/>
+            <el-input v-model="form.userName" :style="{width: '40%'}"/>
           </el-form-item>
         </el-col>
 
@@ -88,7 +88,7 @@
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
-                :style="{width: '200px'}">
+                :style="{width: '40%'}">
               </el-option>
             </el-select>
           </el-form-item>
@@ -203,7 +203,7 @@
     <el-dialog title="修改信息" :visible.sync="dialogFormVisible">
       <el-form ref="form" :model="honor" label-width="120px">
         <el-form-item label="荣誉名称">
-          <el-input v-model="honor.name" :style="{width: '200px'}"/>
+          <el-input v-model="honor.name" :style="{width: '40%'}"/>
         </el-form-item>
 
         <el-form-item label="获奖时间">
@@ -212,7 +212,7 @@
             value-format="yyyy-MM"
             type="month"
             placeholder="选择获奖时间"
-            :style="{width: '200px'}"
+            :style="{width: '40%'}"
           >
           </el-date-picker>
         </el-form-item>
