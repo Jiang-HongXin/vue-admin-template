@@ -2,22 +2,22 @@
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="120px">
       <el-form-item label="荣誉名称">
-        <el-input v-model="form.name" :style="{width: '40%'}"/>
+        <el-input v-model="form.name" :style="{width: '30%'}"/>
       </el-form-item>
 
-      <el-form-item label="获奖时间">
+      <el-form-item label="获奖时间" >
         <el-date-picker
           v-model="form.date"
           value-format="yyyy-MM"
           type="month"
           placeholder="选择获奖时间"
-          :style="{width: '40%'}"
+          :style="{width: '30%'}"
         >
         </el-date-picker>
       </el-form-item>
 
       <el-form-item label="获奖类别">
-        <el-select v-model="form.type" placeholder="请选择">
+        <el-select v-model="form.type" placeholder="请选择"  :style="{width: '30%'}">
           <el-option
             v-for="item in typeSelector"
             :key="item.value"
@@ -28,7 +28,7 @@
       </el-form-item>
 
       <el-form-item label="获奖级别">
-        <el-select v-model="form.grade" placeholder="请选择">
+        <el-select v-model="form.grade" placeholder="请选择"  :style="{width: '30%'}">
           <el-option
             v-for="item in gradeSelector"
             :key="item.value"
@@ -39,7 +39,7 @@
       </el-form-item>
 
       <el-form-item label="获奖等级">
-        <el-select v-model="form.level" placeholder="请选择">
+        <el-select v-model="form.level" placeholder="请选择"  :style="{width: '30%'}">
           <el-option
             v-for="item in levelSelector"
             :key="item.value"
@@ -49,7 +49,7 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="是否协会性质">
+      <el-form-item label="是否协会性质" >
         <el-switch v-model="form.society"
                    active-value="1"
                    inactive-value="0"
