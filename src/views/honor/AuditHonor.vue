@@ -112,12 +112,13 @@
     <el-image-viewer v-if="viewVisible" :url-list="urls" :on-close="closeView" :teleported="true" />
 
     <el-table
-      v-loading="listLoading"
+      v-loading.fullscreen="listLoading"
       :data="list"
-      element-loading-text="Loading"
       border
       fit
       highlight-current-row
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
     >
       <el-table-column label="教师姓名"  width="120">
         <template slot-scope="scope">
@@ -399,7 +400,9 @@ export default {
      *  图片展示
      */
     async openView(fileIndex) {
+      this.listLoading = true
       await this.initUrls(fileIndex)
+      this.listLoading = false
       this.viewVisible = true;
     },
     closeView() {
