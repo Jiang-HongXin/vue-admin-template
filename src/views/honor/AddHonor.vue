@@ -126,15 +126,21 @@ export default {
   },
   methods: {
     onSubmit() {
-      if (this.form.name === '' || this.form.date === '' || this.form.type === '' ||
-        this.form.level === '' || this.form.society === '' || this.form.grade === '' ) {
-        MessageBox.confirm('请检查信息是否填写完整！', '确认', {
+      if (this.fileIndexMap.size === 0) {
+        MessageBox.confirm('请上传证书照片！', '通知', {
           confirmButtonText: '确认',
           showCancelButton: false,
         })
         return;
       }
-
+      if (this.form.name === '' || this.form.date === '' || this.form.type === '' ||
+        this.form.level === '' || this.form.society === '' || this.form.grade === '' ) {
+        MessageBox.confirm('请检查信息是否填写完整！', '通知', {
+          confirmButtonText: '确认',
+          showCancelButton: false,
+        })
+        return;
+      }
 
       this.form.fileIndex = Array.from(this.fileIndexMap.values()).join(',')
       addHonor(this.form).then(response => {

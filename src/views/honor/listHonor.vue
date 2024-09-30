@@ -478,6 +478,14 @@ export default {
       let api;
       this.honor.fileIndex = Array.from(this.fileIndexMap.values()).join(',')
 
+      if (this.fileIndexMap.size === 0) {
+        MessageBox.confirm('请上传证书照片！', '通知', {
+          confirmButtonText: '确认',
+          showCancelButton: false,
+        })
+        return;
+      }
+
       if (this.honor.id) {
 
         api = updateHonor(this.honor);

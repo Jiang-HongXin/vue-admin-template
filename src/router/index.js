@@ -72,12 +72,7 @@ export const constantRoutes = [
         name: 'Form',
         component: () => import('@/views/honor/AddHonor'),
         meta: { title: '增加荣誉', icon: 'form' }
-      },
-      {
-        path: 'updateHonor',
-        name: 'Form',
-        component: () => import('@/views/honor/UpdateHonor'),
-      },
+      }
     ]
   },
 
