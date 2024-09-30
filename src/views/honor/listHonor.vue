@@ -156,6 +156,7 @@
       <el-table-column label="操作" fixed="right">
         <template #default="scope">
           <ElButton  @click="openUpdateView(scope.row)"  type="text" :disabled="scope.row.auditing === 2">修改</ElButton>
+          <ElButton  @click="onClickDelete(scope.row)"  type="text" :disabled="scope.row.auditing === 2 || scope.row.auditing === 1">删除</ElButton>
         </template>
       </el-table-column>
     </el-table>
@@ -271,7 +272,7 @@ import {
   auditHonor,
   addHonor,
   uploadFile,
-  updateHonor
+  updateHonor, deleteHonor
 } from "@/api/honor";
 import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
 import {Message, MessageBox} from "element-ui";
@@ -444,6 +445,29 @@ export default {
       await this.initUrls(data.fileIndex)
 
       this.dialogFormVisible = true
+    },
+    /**
+     * 更新
+     */
+    async onClickDelete(data) {
+      this.$confirm("确定删除该记录么？", '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(() => {
+        // 用户点击确认按钮后的回调函数
+        this.listLoading = true
+
+        deleteHonor(data).then(response => {
+          this.$message({
+            message: '操作成功!',
+            type: 'success'
+          })
+          this.fetchData()
+        })
+      }).catch(() => {
+      }).finally(() => {
+        this.listLoading = false
+      })
     },
     /**
      * 初审 or 复审

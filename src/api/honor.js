@@ -65,3 +65,12 @@ export function auditHonor(data) {
     data,
   })
 }
+
+
+export function deleteHonor(data) {
+  return request({
+    url: '/honor/delete',
+    method: 'post',
+    data,
+  })
+}
