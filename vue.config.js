@@ -34,6 +34,19 @@ module.exports = {
     disableHostCheck: true,
     port: port,
     open: true,
+    proxy: {
+      // vue2.x版本为 proxyTable，vue3.x为proxy。
+      // detail: https://cli.vuejs.org/config/#devserver-proxy
+      '^/api': {
+        target: process.env.VUE_APP_BASE_API,
+        changeOrigin: true,
+        secure: false,  // 如果是https接口，需要配置这个参数为true
+        pathRewrite: {
+          // 路径重写
+          '^/api': ''
+        }
+      }
+    },
     overlay: {
       warnings: false,
       errors: true
