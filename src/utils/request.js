@@ -57,11 +57,11 @@ service.interceptors.response.use(
     const res = response.data
 
     if (res.code !== 0) {
-      Message({
-        message: res.msg || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
+      // Message({
+      //   message: res.msg || 'Error',
+      //   type: 'error',
+      //   duration: 5 * 1000
+      // })
 
       // 400: Illegal token;
       if (res.code === 400) {
@@ -76,13 +76,12 @@ service.interceptors.response.use(
           })
         })
       }
-      return Promise.reject(new Error(res.message || 'Error'))
+      return Promise.reject(new Error(res.msg))
     } else {
       return res
     }
   },
   error => {
-    console.log('err' + error) // for debug
     Message({
       message: error.message,
       type: 'error',
