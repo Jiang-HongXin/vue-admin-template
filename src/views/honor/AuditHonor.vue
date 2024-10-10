@@ -333,11 +333,7 @@ export default {
       this.levelSelector = data['荣誉等级']
       this.subjectSelector = data['教师科目']
     }).catch(error => {
-      Message({
-        message: error || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
+
     })
   },
   data() {

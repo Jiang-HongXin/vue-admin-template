@@ -137,11 +137,7 @@ export default {
       getDictionaryV2(this.form).then(response => {
         this.list = response.data
       }).catch(error => {
-        Message({
-          message: error || 'Error',
-          type: 'error',
-          duration: 5 * 1000
-        })
+
       }).finally(() =>  this.listLoading = false)
     },
     clickUpdateBtn(data) {
@@ -175,11 +171,7 @@ export default {
         })
 
       }).catch(error => {
-        Message({
-          message: error || 'Error',
-          type: 'error',
-          duration: 5 * 1000
-        })
+
       }).finally(() => {
         this.fetchData()
       })

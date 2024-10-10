@@ -166,11 +166,7 @@ export default {
       this.subjectSelector = data['教师科目']
 
     }).catch(error => {
-      Message({
-        message: error || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
+
     })
   },
   data() {
@@ -262,16 +258,12 @@ export default {
           message: '操作成功!',
           type: 'success'
         })
-
-      }).catch(error => {
-        Message({
-          message: error || 'Error',
-          type: 'error',
-          duration: 5 * 1000
-        })
-      }).finally(() => {
         this.dialogFormVisible = false
         this.fetchData()
+      }).catch(error => {
+
+      }).finally(() => {
+
       })
     }
   }

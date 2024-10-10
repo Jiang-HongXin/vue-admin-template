@@ -305,11 +305,7 @@ export default {
       this.levelSelector = data['荣誉等级']
 
     }).catch(error => {
-      Message({
-        message: error || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
+
     })
   },
   data() {
