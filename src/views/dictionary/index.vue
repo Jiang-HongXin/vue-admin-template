@@ -169,11 +169,11 @@ export default {
           message: '操作成功!',
           type: 'success'
         })
+        this.fetchData()
 
       }).catch(error => {
 
       }).finally(() => {
-        this.fetchData()
       })
     },
   }

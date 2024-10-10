@@ -55,22 +55,22 @@ export default {
   data() {
     const validatePhone = (rule, value, callback) => {
       if (!validPhone(value)) {
-        callback(new Error('Please enter the correct phone'))
+        callback(new Error('请输入正确的手机号码！'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码至少需要六位！'))
       } else {
         callback()
       }
     }
     return {
       loginForm: {
-        phone: '10000',
-        password: '123456'
+        phone: '',
+        password: ''
       },
       loginRules: {
         phone: [{ required: true, trigger: 'blur', validator: validatePhone }],
@@ -106,6 +106,11 @@ export default {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm).then(() => {
             this.$router.push({ path: this.redirect || '/' })
+
+            this.$message({
+              message: '登录成功!',
+              type: 'success'
+            })
             this.loading = false
           }).catch(() => {
             this.loading = false
