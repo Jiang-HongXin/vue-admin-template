@@ -159,15 +159,12 @@ export default {
           type: 'success'
         })
 
-      }).catch(error => {
-        Message({
-          message: error || 'Error',
-          type: 'error',
-          duration: 5 * 1000
-        })
-      }).finally(() => {
         this.dialogFormVisible = false
         this.fetchData()
+      }).catch(error => {
+
+      }).finally(() => {
+
       })
     },
     clickDeleteBtn(data) {

@@ -57,11 +57,6 @@ service.interceptors.response.use(
     const res = response.data
 
     if (res.code !== 0) {
-      // Message({
-      //   message: res.msg || 'Error',
-      //   type: 'error',
-      //   duration: 5 * 1000
-      // })
 
       // 400: Illegal token;
       if (res.code === 400) {
@@ -74,6 +69,12 @@ service.interceptors.response.use(
           store.dispatch('user/resetToken').then(() => {
             location.reload()
           })
+        })
+      } else {
+        Message({
+          message: res.msg || 'Error',
+          type: 'error',
+          duration: 5 * 1000
         })
       }
       return Promise.reject(new Error(res.msg))
