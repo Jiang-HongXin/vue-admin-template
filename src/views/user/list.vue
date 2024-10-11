@@ -75,7 +75,7 @@
         <template #default="scope">
           <ElButton  @click="updatePassword(scope.row)"  type="text" v-show="role === '教研组长'">修改密码</ElButton>
           <ElButton  @click="onClickUpdateBtn(scope.row)"  type="text" v-show="role === '系统管理员'">修改人员信息</ElButton>
-
+          <ElButton  @click="onClickDeleteBtn(scope.row)"  type="text" v-show="role === '系统管理员'">删除</ElButton>
         </template>
       </el-table-column>
     </el-table>
@@ -138,7 +138,7 @@
 </template>
 
 <script>
-import { list, update} from '@/api/user'
+import {deleteUser, list, update} from '@/api/user'
 import {getDictionary} from "@/api/honor";
 import {Message} from "element-ui";
 import {mapGetters} from "vuex";
@@ -251,6 +251,22 @@ export default {
     onClickUpdateBtn(data) {
       Object.assign(this.user, data);
       this.dialogFormVisible = true
+    },
+    onClickDeleteBtn(data) {
+      Object.assign(this.user, data);
+      this.dialogFormVisible = true
+      deleteUser(this.user).then(response => {
+        this.$message({
+          message: '操作成功!',
+          type: 'success'
+        })
+        this.dialogFormVisible = false
+        this.fetchData()
+      }).catch(error => {
+
+      }).finally(() => {
+
+      })
     },
     onClickConfirm() {
       update(this.user).then(response => {
