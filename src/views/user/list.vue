@@ -259,7 +259,6 @@ export default {
           message: '操作成功!',
           type: 'success'
         })
-        this.dialogFormVisible = false
         this.fetchData()
       }).catch(error => {
 
