@@ -210,6 +210,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
+      this.form.pageIndex = this.currentPage - 1
       list(this.form).then(response => {
         this.list = response.data.data
         this.total = response.data.total
