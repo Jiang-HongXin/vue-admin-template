@@ -33,7 +33,7 @@ export function update(data) {
 
 export function deleteUser(data) {
   return request({
-    url: '/user/delete',
+    url: '/admin/user/delete',
     method: 'post',
     data
   })
