@@ -254,7 +254,6 @@ export default {
     },
     onClickDeleteBtn(data) {
       Object.assign(this.user, data);
-      this.dialogFormVisible = true
       deleteUser(this.user).then(response => {
         this.$message({
           message: '操作成功!',
