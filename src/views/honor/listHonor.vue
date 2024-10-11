@@ -106,6 +106,12 @@
         </template>
       </el-table-column>
 
+      <el-table-column label="发奖单位"  width="120">
+        <template slot-scope="scope">
+          {{ scope.row.unit }}
+        </template>
+      </el-table-column>
+
       <el-table-column label="获奖年月份" width="120" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.date }}</span>
@@ -177,6 +183,10 @@
       <el-form ref="form" :model="honor" label-width="120px">
         <el-form-item label="荣誉名称">
           <el-input v-model="honor.name" :style="{width: '40%'}"/>
+        </el-form-item>
+
+        <el-form-item label="发奖单位">
+          <el-input v-model="honor.unit" :style="{width: '40%'}" placeholder="以公章为准"/>
         </el-form-item>
 
         <el-form-item label="获奖时间">
@@ -355,6 +365,7 @@ export default {
         auditing: '',
         fileIndex: '',
         id: 0,
+        unit: '',
       },
 
       fileList: [],
@@ -496,7 +507,6 @@ export default {
      */
     onSubmit() {
       let api;
-      this.honor.fileIndex = Array.from(this.fileIndexMap.values()).join(',')
 
       if (this.fileIndexMap.size === 0) {
         MessageBox.confirm('请上传证书照片！', '通知', {
@@ -506,22 +516,29 @@ export default {
         return;
       }
 
-      if (this.honor.id) {
+      if (this.honor.name === '' || this.honor.date === '' || this.honor.type === '' ||
+        this.honor.level === '' || this.honor.society === '' || this.honor.grade === '' || this.honor.unit === '') {
+        MessageBox.confirm('请检查信息是否填写完整！', '通知', {
+          confirmButtonText: '确认',
+          showCancelButton: false,
+        })
+        return;
+      }
 
+      this.honor.fileIndex = Array.from(this.fileIndexMap.values()).join(',')
+
+      if (this.honor.id) {
         api = updateHonor(this.honor);
       } else {
         api = addHonor(this.honor);
       }
       api.then(response => {
-        if (response.code === 0) {
-          MessageBox.confirm('操作成功！', '通知', {
-            // cancelButtonText: '否',
-            confirmButtonText: '确认',
-          }).then(() => {
-            this.dialogFormVisible = false
-            this.fetchData()
-          })
-        }
+        this.$message({
+          message: '操作成功!',
+          type: 'success'
+        })
+        this.dialogFormVisible = false
+        this.fetchData()
       })
     },
     handleRemove(item) {

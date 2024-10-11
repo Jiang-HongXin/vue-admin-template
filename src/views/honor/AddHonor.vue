@@ -5,6 +5,10 @@
         <el-input v-model="form.name" :style="{width: '30%'}"/>
       </el-form-item>
 
+      <el-form-item label="发奖单位">
+        <el-input v-model="form.unit" :style="{width: '30%'}" placeholder="以公章为准"/>
+      </el-form-item>
+
       <el-form-item label="获奖时间" >
         <el-date-picker
           v-model="form.date"
@@ -112,6 +116,7 @@ export default {
         society: 1,
         grade: '',
         fileIndex: '',
+        unit: '',
       },
       typeSelector: [],
       levelSelector: [],
@@ -130,7 +135,7 @@ export default {
         return;
       }
       if (this.form.name === '' || this.form.date === '' || this.form.type === '' ||
-        this.form.level === '' || this.form.society === '' || this.form.grade === '' ) {
+        this.form.level === '' || this.form.society === '' || this.form.grade === '' || this.form.unit === '') {
         MessageBox.confirm('请检查信息是否填写完整！', '通知', {
           confirmButtonText: '确认',
           showCancelButton: false,
