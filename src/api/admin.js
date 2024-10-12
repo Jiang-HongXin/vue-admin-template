@@ -19,7 +19,7 @@ export function importData(data) {
 export function getDictionaryV2(data) {
   return request({
     url: '/admin/dic/listV2',
-    method: 'get',
+    method: 'post',
     data
   })
 }

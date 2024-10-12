@@ -13,7 +13,7 @@
                    placeholder="输入手机号"/>
       </el-form-item>
 
-      <el-form-item label="教师科目">
+      <el-form-item label="教师科目" v-show="role === '系统管理员'">
         <el-select v-model="form.subject" placeholder="请选择" clearable>
           <el-option
             v-for="item in subjectSelector"
@@ -189,6 +189,9 @@ export default {
       form: {
         pageIndex: 0,
         pageSize: 10,
+        phone: '',
+        name: '',
+        subject: '',
       },
       options: [{
         value: '普通教师',
