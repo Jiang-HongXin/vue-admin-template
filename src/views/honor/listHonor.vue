@@ -145,7 +145,7 @@
       <el-table-column label="审核状态"  align="center">
         <template slot-scope="scope">
           {{ scope.row.auditing === 0 ? '未审核' :
-          (scope.row.auditing === 1 ? '待复审' : '已完成')
+          (scope.row.auditing === 2 ? '已完成' : '待复审')
           }}
         </template>
       </el-table-column>
@@ -161,7 +161,7 @@
 
       <el-table-column label="操作" fixed="right">
         <template #default="scope">
-          <ElButton  @click="openUpdateView(scope.row)"  type="text" :disabled="scope.row.auditing > 0">修改</ElButton>
+          <ElButton  @click="openUpdateView(scope.row)"  type="text" :disabled="scope.row.auditing > 0 && scope.row.auditing < 3">修改</ElButton>
           <ElButton  @click="onClickDelete(scope.row)"  type="text" :disabled="scope.row.auditing === 2 || scope.row.auditing === 1">删除</ElButton>
         </template>
       </el-table-column>

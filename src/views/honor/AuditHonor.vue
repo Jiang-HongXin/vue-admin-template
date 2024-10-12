@@ -171,7 +171,7 @@
       <el-table-column label="审核状态"  align="center">
         <template slot-scope="scope">
           {{ scope.row.auditing === 0 ? '未审核' :
-          (scope.row.auditing === 1 ? '待复审' : '已完成')
+          (scope.row.auditing === 2 ? '已完成' : '待复审')
           }}
         </template>
       </el-table-column>
@@ -189,8 +189,8 @@
         <template #default="scope">
           <ElButton  @click="openUpdateView(scope.row)"  type="text" :disabled="scope.row.auditing === 2">修改</ElButton>
           <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 0" v-show="role === '教研组长'">初审</ElButton>
-          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 1" v-show="role === '教科室主任'">复审</ElButton>
-          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing < 2" v-show="role === '教科室主任'">打回</ElButton>
+          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 1 && scope.row.auditing !== 3" v-show="role === '教科室主任'">复审</ElButton>
+          <ElButton  @click="openAuditView(scope.row)"  type="text" :disabled="scope.row.auditing !== 2" v-show="role === '教科室主任'">打回</ElButton>
         </template>
       </el-table-column>
     </el-table>
