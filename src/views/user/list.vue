@@ -26,6 +26,7 @@
 
       <el-form-item>
         <ElButton type="primary" @click="fetchData">搜索</ElButton>
+        <ElButton type="primary" @click="onClickInsertBtn">新增</ElButton>
       </el-form-item>
 
     </el-form>
@@ -92,7 +93,7 @@
     </div>
 
     <!-- Form -->
-    <el-dialog title="修改信息" :visible.sync="dialogFormVisible">
+    <el-dialog title="用户信息" :visible.sync="dialogFormVisible">
       <el-form :model="user" ref="user">
         <el-form-item label="名称" label-width="15%">
           <el-input v-model="user.name"  :style="{width: '40%'}"/>
@@ -140,7 +141,7 @@
 <script>
 import {deleteUser, list, update} from '@/api/user'
 import {getDictionary} from "@/api/honor";
-import {Message} from "element-ui";
+import {Message, MessageBox} from "element-ui";
 import {mapGetters} from "vuex";
 import {operateDictionary} from "@/api/admin";
 
@@ -179,6 +180,7 @@ export default {
         subject: '',
         password: '',
         phone: '',
+        id: ''
       },
       total: 0,
       currentPage: 1,
@@ -253,6 +255,15 @@ export default {
       Object.assign(this.user, data);
       this.dialogFormVisible = true
     },
+    onClickInsertBtn() {
+      this.user.id = ''
+      this.user.name = ''
+      this.user.role = ''
+      this.user.subject = ''
+      this.user.password = ''
+      this.user.phone = ''
+      this.dialogFormVisible = true
+    },
     onClickDeleteBtn(data) {
       Object.assign(this.user, data);
       deleteUser(this.user).then(response => {
@@ -268,6 +279,19 @@ export default {
       })
     },
     onClickConfirm() {
+      console.log(this.user)
+      if (this.user.id === '') {
+        if (this.user.name === '' || this.user.subject === '' || this.user.phone === '' ||
+          this.user.role === '' || this.user.password === '') {
+          MessageBox.confirm('请检查信息是否填写完整！', '通知', {
+            confirmButtonText: '确认',
+            showCancelButton: false,
+          })
+          return;
+        }
+
+      }
+
       update(this.user).then(response => {
         this.$message({
           message: '操作成功!',
