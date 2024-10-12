@@ -452,7 +452,7 @@ export default {
      */
     fetchData() {
       this.listLoading = true
-      this.form.pageIndex = this.currentPage - 1
+      this.form.pageIndex = (this.currentPage - 1) * 10
       this.form.source = 1
 
       if (this.form.dateRange) {
@@ -473,7 +473,7 @@ export default {
      */
     exportData() {
       this.listLoading = true
-      this.form.pageIndex = this.currentPage - 1
+      this.form.pageIndex = (this.currentPage - 1) * 10
       this.form.source = 1
       exportHonor(this.form).then(res => {
 
