@@ -491,10 +491,11 @@ export default {
      * 更新
      */
     async openUpdateView(data) {
+      this.listLoading = true
       Object.assign(this.honor, data)
       this.fileList = []
       await this.initUrls(data.fileIndex)
-
+      this.listLoading = false
       this.dialogFormVisible = true
     },
     /**
