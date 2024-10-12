@@ -6,12 +6,15 @@
       <el-row>
         <el-col :span="6">
           <el-form-item label="获奖时间">
-          <el-date-picker
-            v-model="form.date"
-            type="month"
-            placeholder="选择获奖时间"
-            :style="{width: '200px'}">
-          </el-date-picker>
+            <el-date-picker
+              v-model="form.dateRange"
+              type="monthrange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              value-format="yyyy-MM"
+              :style="{width: '200px'}">
+            </el-date-picker>
         </el-form-item>
         </el-col>
 
@@ -326,7 +329,9 @@ export default {
       currentPage: 1,
       form: {
         name: '',
-        date: '',
+        startDate: '',
+        endDate: '',
+        dateRange: '',
         type: '',
         level: '',
         society: 1,
@@ -418,6 +423,14 @@ export default {
       this.listLoading = true
       this.form.pageIndex = this.currentPage - 1
       this.form.source = 0
+
+      if (this.form.dateRange) {
+        this.form.startDate = this.form.dateRange[0]
+        this.form.endDate = this.form.dateRange[1]
+      } else {
+        this.form.startDate = ''
+        this.form.endDate = ''
+      }
       listHonor(this.form).then(response => {
         this.list = response.data.data
         this.total = response.data.total
