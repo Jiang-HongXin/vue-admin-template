@@ -103,7 +103,7 @@
           </el-form-item>
 
           <el-form-item>
-            <ElButton type="primary" @click="exportData">导出当前页数据</ElButton>
+            <ElButton type="primary" @click="exportData">导出数据</ElButton>
           </el-form-item>
         </el-col>
       </el-row>
