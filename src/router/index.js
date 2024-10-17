@@ -49,27 +49,6 @@ export const constantRoutes = [
     }]
   },
 
-  {
-    path: '/honor',
-    component: Layout,
-    alwaysShow: true,
-    meta: { title: '荣誉管理', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'listHonor',
-        name: 'Form',
-        component: () => import('@/views/honor/listHonor'),
-        meta: { title: '查看荣誉', icon: 'table' }
-      },
-      {
-        path: 'addHonor',
-        name: 'Form',
-        component: () => import('@/views/honor/AddHonor'),
-        meta: { title: '增加荣誉', icon: 'form' }
-      }
-    ]
-  },
-
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/', hidden: true }
@@ -100,6 +79,27 @@ export default router
  * @returns {VueRouter}
  */
 export const asyncRoutes = [
+  {
+    path: '/honor',
+    component: Layout,
+    alwaysShow: true,
+    meta: { title: '荣誉管理', icon: 'el-icon-s-help', roles: ['普通教师', '教研组长', '教科室主任'] },
+    children: [
+      {
+        path: 'listHonor',
+        name: 'Form',
+        component: () => import('@/views/honor/listHonor'),
+        meta: { title: '查看荣誉', icon: 'table' }
+      },
+      {
+        path: 'addHonor',
+        name: 'Form',
+        component: () => import('@/views/honor/AddHonor'),
+        meta: { title: '增加荣誉', icon: 'form' }
+      }
+    ]
+  },
+
   {
     path: '/groupLeader',
     component: Layout,
