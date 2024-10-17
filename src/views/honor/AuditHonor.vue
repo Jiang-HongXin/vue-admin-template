@@ -97,13 +97,17 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="8">
           <el-form-item>
             <ElButton type="primary" @click="fetchData">搜索</ElButton>
           </el-form-item>
 
           <el-form-item>
             <ElButton type="primary" @click="exportData">导出数据</ElButton>
+          </el-form-item>
+
+          <el-form-item>
+            <ElButton type="primary" @click="exportDataWithPic">导出数据(含图片)</ElButton>
           </el-form-item>
         </el-col>
       </el-row>
@@ -472,33 +476,30 @@ export default {
     /**
      * 导出
      */
-    exportData() {
+    export() {
       this.listLoading = true
       this.form.pageIndex = (this.currentPage - 1) * 10
       this.form.source = 1
 
-      this.$confirm('选择是否含图片导出', '选择', {
-        confirmButtonText: '是',
-        cancelButtonText: '否'
-      }).then(() => {
-        // 用户点击确认按钮后的回调函数
-        this.form.exportWithPic = true
-      }).catch(() => {
-        this.form.exportWithPic = false
-      }).finally(() => {
-        exportHonor(this.form).then(res => {
+      exportHonor(this.form).then(res => {
 
-          let blobUrl = window.URL.createObjectURL(res.data);
-          const a = document.createElement('a');
-          a.style.display = 'none';
-          a.download = '证书数据.xlsx';
-          a.href = blobUrl;
-          a.click();
+        let blobUrl = window.URL.createObjectURL(res.data);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.download = '证书数据.xlsx';
+        a.href = blobUrl;
+        a.click();
 
-          this.listLoading = false
-        })
-
+        this.listLoading = false
       })
+    },
+    exportData() {
+      this.form.exportWithPic = false
+      this.export()
+    },
+    exportDataWithPic() {
+      this.form.exportWithPic = true
+      this.export()
     },
     /**
      * 更新
