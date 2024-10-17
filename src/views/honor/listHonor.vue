@@ -260,7 +260,7 @@
             multiple
           >
             <el-button size="small" type="primary">点击上传</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传图片文件，且不超过5MB，最多上传三张</div>
+            <div slot="tip" class="el-upload__tip">只能上传图片文件，且不超过3MB，最多上传三张</div>
             <div slot="tip" class="el-upload__tip">接受的图片类型: .jpg, .jpeg, .png, .gif, .JPG, .JPEG, .PNG, .GIF</div>
           </el-upload>
         </el-form-item>
