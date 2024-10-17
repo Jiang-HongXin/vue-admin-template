@@ -371,6 +371,7 @@ export default {
         pageIndex: 0,
         pageSize: 10,
         source: 1,
+        exportWithPic: false,
       },
       src: '',
       viewVisible: false,
@@ -475,16 +476,28 @@ export default {
       this.listLoading = true
       this.form.pageIndex = (this.currentPage - 1) * 10
       this.form.source = 1
-      exportHonor(this.form).then(res => {
 
-        let blobUrl = window.URL.createObjectURL(res.data);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.download = '证书数据.xlsx';
-        a.href = blobUrl;
-        a.click();
+      this.$confirm('选择是否含图片导出', '选择', {
+        confirmButtonText: '是',
+        cancelButtonText: '否'
+      }).then(() => {
+        // 用户点击确认按钮后的回调函数
+        this.form.exportWithPic = true
+      }).catch(() => {
+        this.form.exportWithPic = false
+      }).finally(() => {
+        exportHonor(this.form).then(res => {
 
-        this.listLoading = false
+          let blobUrl = window.URL.createObjectURL(res.data);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.download = '证书数据.xlsx';
+          a.href = blobUrl;
+          a.click();
+
+          this.listLoading = false
+        })
+
       })
     },
     /**
