@@ -120,7 +120,7 @@
       border
       fit
       highlight-current-row
-      element-loading-text="拼命加载中"
+      element-loading-text="拼命加载中，请不要关闭页面，耐心等待0～3分钟。"
       element-loading-spinner="el-icon-loading"
     >
       <el-table-column label="教师姓名"  width="120">
