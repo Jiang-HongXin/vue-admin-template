@@ -190,9 +190,9 @@ export default {
         this.$message.error('上传图片只能是 JPG、JPEG、GIF、BMP、PNG 格式!');
         return Promise.reject(false);
       }
-      const isLtSize = file.size / 1024 / 1024 < 5;
+      const isLtSize = file.size / 1024 / 1024 < 3;
       if (!isLtSize) {
-        this.$message.error('上传图片大小不能超过5MB!');
+        this.$message.error('上传图片大小不能超过3MB!');
         return Promise.reject(false);
       }
       return true;
