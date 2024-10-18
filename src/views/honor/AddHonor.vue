@@ -151,6 +151,19 @@ export default {
             confirmButtonText: '是',
           }).then(() => {
             this.$router.push("/honor/listHonor")
+          }).catch(() => {
+            this.fileList = []
+            this.fileIndexMap = new Map()
+            this.form = {
+                name: '',
+                date: '',
+                type: '',
+                level: '',
+                society: 1,
+                grade: '',
+                fileIndex: '',
+                unit: '',
+            }
           })
         }
       })
