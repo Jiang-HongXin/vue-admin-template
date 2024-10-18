@@ -448,7 +448,7 @@ export default {
     export() {
       this.listLoading = true
       this.form.pageIndex = (this.currentPage - 1) * 10
-      this.form.source = 1
+      this.form.source = 0
 
       exportHonor(this.form).then(res => {
 
