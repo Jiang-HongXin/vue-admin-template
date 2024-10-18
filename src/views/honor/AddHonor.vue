@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form ref="form" :model="form" label-width="120px">
+    <el-form ref="form" :model="form" label-width="120px"  v-loading.fullscreen="listLoading" element-loading-text="拼命加载中，请不要关闭页面，耐心等待0～3分钟。" element-loading-spinner="el-icon-loading">
       <el-form-item label="荣誉名称">
         <el-input v-model="form.name" :style="{width: '30%'}"/>
       </el-form-item>
@@ -108,6 +108,7 @@ export default {
   },
   data() {
     return {
+      listLoading: false,
       form: {
         name: '',
         date: '',
@@ -175,6 +176,8 @@ export default {
       this.fileIndexMap.delete(item.name)
     },
     uploadFiles(item) {
+      this.listLoading = true
+
       let formData = new FormData()
       formData.append('file', item.file)
       uploadFile(formData).then(response => {
@@ -190,6 +193,8 @@ export default {
             type: 'error'
           })
         }
+      }).finally(() => {
+        this.listLoading = false
       })
     },
     beforeUpload(file) {
