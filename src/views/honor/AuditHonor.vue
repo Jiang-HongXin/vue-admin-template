@@ -477,6 +477,17 @@ export default {
      * 导出
      */
     export() {
+      if (!this.form.dateRange || this.form.dateRange.length < 2 ) {
+        MessageBox.confirm('导出选项需要设置获奖日期范围！', '通知', {
+          confirmButtonText: '确认',
+          showCancelButton: false,
+        })
+        return;
+      } else {
+        this.form.startDate = this.form.dateRange[0]
+        this.form.endDate = this.form.dateRange[1]
+      }
+
       this.listLoading = true
       this.form.pageIndex = (this.currentPage - 1) * 10
       this.form.source = 1
