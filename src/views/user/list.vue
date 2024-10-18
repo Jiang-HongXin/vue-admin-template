@@ -26,7 +26,7 @@
 
       <el-form-item>
         <ElButton type="primary" @click="fetchData">搜索</ElButton>
-        <ElButton type="primary" @click="onClickInsertBtn">新增</ElButton>
+        <ElButton type="primary" @click="onClickInsertBtn" v-show="role === '系统管理员'">新增</ElButton>
       </el-form-item>
 
     </el-form>
