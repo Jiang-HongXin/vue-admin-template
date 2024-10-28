@@ -78,6 +78,22 @@
         </el-upload>
       </el-form-item>
 
+      <el-form-item label="其他资料">
+        <el-upload
+          class="upload-demo"
+          action=""
+          :before-upload="beforeUpload2"
+          :http-request="uploadFiles2"
+          :on-change="handleChange"
+          :on-remove="handleRemove2"
+          :file-list="fileList2"
+          :limit="1"
+          multiple
+        >
+          <el-button size="small" type="primary">点击上传</el-button>
+          <div slot="tip" class="el-upload__tip">不接受图片类型: .jpg, .jpeg, .png, .gif, .JPG, .JPEG, .PNG, .GIF</div>
+        </el-upload>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确认上传</el-button>
       </el-form-item>
@@ -117,19 +133,22 @@ export default {
         society: 1,
         grade: '',
         fileIndex: '',
+        extraIndex: '',
         unit: '',
       },
       typeSelector: [],
       levelSelector: [],
       gradeSelector: [],
       fileList: [],
-      fileIndexMap: new Map()
+      fileList2: [],
+      fileIndexMap: new Map(),
+      fileIndexMap2: new Map()
     }
   },
   methods: {
     onSubmit() {
-      if (this.fileIndexMap.size === 0) {
-        MessageBox.confirm('请上传证书照片！', '通知', {
+      if (this.fileIndexMap.size === 0 && this.fileIndexMap2.size === 0) {
+        MessageBox.confirm('请上传证书资料！', '通知', {
           confirmButtonText: '确认',
           showCancelButton: false,
         })
@@ -145,6 +164,8 @@ export default {
       }
 
       this.form.fileIndex = Array.from(this.fileIndexMap.values()).join(',')
+      this.form.extraIndex = Array.from(this.fileIndexMap2.values()).join(',')
+
       addHonor(this.form).then(response => {
         if (response.code === 0) {
           MessageBox.confirm('上传成功! 是否前往证书列表进行查看?', '操作结果通知', {
@@ -214,7 +235,49 @@ export default {
         return Promise.reject(false);
       }
       return true;
-    }
+    },
+    /**
+     * upload2
+     */
+    beforeUpload2(file) {
+      let types = ['image/jpeg', 'image/jpg', 'image/gif', 'image/bmp', 'image/png'];
+      const isImage = types.includes(file.type);
+      if (isImage) {
+        this.$message.error('图片资料请上传到【证书照片】!');
+        return Promise.reject(false);
+      }
+      const isLtSize = file.size / 1024 / 1024 < 3;
+      if (!isLtSize) {
+        this.$message.error('上传图片大小不能超过3MB!');
+        return Promise.reject(false);
+      }
+      return true;
+    },
+    uploadFiles2(item) {
+      this.listLoading = true
+
+      let formData = new FormData()
+      formData.append('file', item.file)
+      uploadFile(formData).then(response => {
+        if (response.code === 0) {
+          this.fileIndexMap2.set(item.file.name, response.data)
+          this.$message({
+            message: '上传成功!',
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            message: '上传失败，请重新上传!',
+            type: 'error'
+          })
+        }
+      }).finally(() => {
+        this.listLoading = false
+      })
+    },
+    handleRemove2(item) {
+      this.fileIndexMap2.delete(item.name)
+    },
   }
 }
 </script>
