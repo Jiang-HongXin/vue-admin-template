@@ -183,10 +183,19 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="相关资料" fixed="right">
+      <el-table-column label="图片资料" fixed="right">
         <template #default="scope">
           <div v-if="scope.row.fileIndex">
             <ElButton  @click="openView(scope.row.fileIndex)"  type="text">点击查看</ElButton>
+          </div>
+          <div v-else>-</div>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="其他资料" fixed="right">
+        <template #default="scope">
+          <div v-if="scope.row.extraIndex">
+            <ElButton  @click="downloadExtraFile(scope.row.extraIndex)"  type="text">点击下载</ElButton>
           </div>
           <div v-else>-</div>
         </template>
@@ -629,7 +638,20 @@ export default {
           })
         }
       })
+    },
+    downloadExtraFile(extraIndex) {
+      const newForm = {}
+      newForm.fileIndex = extraIndex
+      downloadFile(newForm).then(response => {
+        let blobUrl = window.URL.createObjectURL(response.data);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        // a.download = '导入教师名单模版.xlsx';
+        a.href = blobUrl;
+        a.click();
+      })
     }
+
   }
 }
 
