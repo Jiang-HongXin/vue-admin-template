@@ -342,7 +342,7 @@ import {
   auditHonor,
   addHonor,
   uploadFile,
-  updateHonor
+  updateHonor, exportExtra
 } from "@/api/honor";
 import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
 import {Message, MessageBox} from "element-ui";
@@ -530,7 +530,19 @@ export default {
         a.href = blobUrl;
         a.click();
 
-        this.listLoading = false
+        exportExtra(this.form).then(res => {
+          // 空包 22
+          if (res && res.data && res.data.size > 22) {
+            let blobUrl = window.URL.createObjectURL(res.data);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.download = '其他资料.zip';
+            a.href = blobUrl;
+            a.click();
+          }
+
+          this.listLoading = false
+        })
       })
     },
     exportData() {

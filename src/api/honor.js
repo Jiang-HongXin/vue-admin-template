@@ -58,6 +58,15 @@ export function exportHonor(data) {
   })
 }
 
+export function exportExtra(data) {
+  return request({
+    url: '/honor/exportExtra',
+    method: 'post',
+    data,
+    responseType: 'blob'
+  })
+}
+
 export function auditHonor(data) {
   return request({
     url: '/honor/audit',
