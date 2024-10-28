@@ -638,7 +638,7 @@ export default {
         let blobUrl = window.URL.createObjectURL(response.data);
         const a = document.createElement('a');
         a.style.display = 'none';
-        // a.download = '导入教师名单模版.xlsx';
+        a.download = extraIndex.split('_')[1];
         a.href = blobUrl;
         a.click();
       })
